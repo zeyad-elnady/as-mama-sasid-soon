@@ -34,15 +34,15 @@ export function GlassmorphismNavBar({
   onLanguageToggle,
 }: GlassmorphismNavBarProps) {
   const [activeTab, setActiveTab] = useState(activeItem || items[0]?.name || "");
+  const [prevActiveItem, setPrevActiveItem] = useState(activeItem);
   const [theme, setTheme] = useState<"light" | "dark">(defaultTheme);
   const [isThemeHovered, setIsThemeHovered] = useState(false);
   const [isLangHovered, setIsLangHovered] = useState(false);
 
-  useEffect(() => {
-    if (activeItem) {
-      setActiveTab(activeItem);
-    }
-  }, [activeItem]);
+  if (activeItem && activeItem !== prevActiveItem) {
+    setPrevActiveItem(activeItem);
+    setActiveTab(activeItem);
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
